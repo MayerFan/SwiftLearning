@@ -43,9 +43,8 @@ var instrucution = "look over"
 instrucution += string2
 
 let mark: Character = "!"
-welcome.append(mark)
-
-welcome.stringByAppendingString(instrucution)
+welcome.append(mark) //拼接字符
+welcome.append(instrucution)//拼接字符串
 
 let multiplier = 3
 let message = "\(multiplier) times 2.5 is \(Double(multiplier) * 2.5)"
@@ -86,19 +85,19 @@ let e = "\u{65}"  // 101对应的 十六进制为 0x65
     2.一个扩展字元簇是由一个或多个Unicode标量的有序排列而组成的可读字符。
     3.字符é 可以是单个Unicode标量 U+00E9,也可以是两个Unicode标量的有序排列(U+0065U+0301)
     4.所以在swift中字符串的改变不一定意味着字符串长度的改变 比如常量letter4和letter5，
-    5.区分OC中NSSring的length属性的区别。NSstring的长度是基于字符串在UTF-16编码表示时其中包含的16位单元的个数
+    5.与OC中NSSring的length属性的区别。NSstring的长度是基于字符串在UTF-16编码表示时其中包含的16位单元的个数
     6.通过le4和le5可以知道同义个字符的length不同。
  */
 let letter1 = "\u{0301}"
 let letter3 = "\u{0065}"
 let letter4 = "\u{65}\u{301}" //结果是字符 é
 let letter5 = "\u{e9}"        //结果仍然是字符 é
-print(letter4.characters.count)
-print(letter5.characters.count)
-let le4: NSString = letter4
-let le5: NSString = letter5
-print(le4.length)
-print(le5.length)
+//print(letter4.characters.count)
+//print(letter5.characters.count)///// 怎么转换为OC字符串？
+//let le4: NSString = letter4
+//let le5: NSString = letter5
+//print(le4.length)
+//print(le5.length)
 
 // 字符串下标
 /*
@@ -111,7 +110,7 @@ let startIndex = greeting.startIndex
 let endIndex = greeting.endIndex
 let startIndexValue = greeting[startIndex]
 //let endIndexValue = greeting[endIndex]
-//let endIndexValue = greeting[greeting.index(before:greeting.endIndex)]//swift3.0
+let endIndexValue = greeting[greeting.index(before:greeting.endIndex)]//swift3.0
 
 for index in greeting.characters.indices {
     print("\(greeting[index])") //字符串插值会替换掉变量
@@ -122,8 +121,10 @@ for index in greeting.characters.indices {
     注意：Xcode是swift2 的版本，swift3中有一些新方法找不到
  */
 var welcome2 = "hello"
-welcome2.insert("!", atIndex: welcome2.endIndex)
-welcome2.insertContentsOf(" there".characters, at: welcome2.endIndex)
+let result = welcome2.endIndex
+welcome2.insert("!", at: welcome2.endIndex)
+//welcome2.insert("!", atIndex: welcome2.endIndex)//error
+//welcome2.insertContentsOf(" there".characters, at: welcome2.endIndex)//error
 
 // 字符串和字符判断
 /*
@@ -159,10 +160,9 @@ if latinCapitalLetterA == cyrillicCapitallLetterA {
     4.字符串的Unicode Scalar（标量）表述
  */
 let dogString = "Dog!!"
-for codeUnit in dogString.utf8 {
-    print("\(codeUnit)",terminator:" ") //terminator终结print自带的换行符，替换成terminator的字符
+for codeUnit in dogString.utf16 {
+    print("\(codeUnit)",terminator:"|") //terminator终结print自带的换行符，替换成terminator的字符
 }
-
 
 
 

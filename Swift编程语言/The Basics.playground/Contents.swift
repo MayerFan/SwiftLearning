@@ -12,9 +12,9 @@ class test: NSObject {
     var width = 8
 }
 let test1 = test()
-let test2 = test1 //类是应用类型，test1和test2是指向同一对象
+let test2 = test1 //类是引用类型，test1和test2是指向同一对象
 let constant = test1
-//constant = test2 // 即便是同一对象也不可再次赋值。
+//constant = test2 // 常量的值不可改变。
 test1.width = 88 //这句只是表明test1对象属性变化，或者以后的test1对象内存空间变化。但都没有改变test1的内存首地址。故常量constrant所存的值没有改变。
 
 
@@ -146,7 +146,7 @@ if i == 1 {
 // 元祖(Tuples)
 /*
     元祖：把多个值组合成一个复合值
-    元组内的值可以是任意类型
+    元组内的值可以是任意类型 (类似结构体)
     1.可以把元组内容分解成单独的常量和变量
     2.如果仅仅需要部分元组值，分解的时候可以把忽略的部分用(_)标示
     3.通过下标来访问元组中的单个元素
@@ -159,7 +159,7 @@ print("The status code is \(statusCode)")
 print("The status message is \(statusMessage)")
 
 let (justTheStatusCode, _) = http404Error //仅仅需要第一个元组值，忽略第二个
-let singleCode = http404Error.0
+let singleCode = justTheStatusCode
 let singleMessage = http404Error.1
 
 let http200Status = (statusCode: 200, description: "OK")//定义元组的时候命名
@@ -181,7 +181,7 @@ let single200Code = http200Status.statusCode
 /*
     可选绑定一般应用于条件语句
     可选绑定的目的：使可选类型常量或变量的不确定值，在条件中具体，if（有值）{} else（nil）{};而不是不具体的：if(有值或nil)｛｝
-    //疑问？ Swift语句中要求条件语句的条件是 true和false。儿可选类型的有值并不能说明条件就是true。 那么可选类型在条件成立的原因可能是 可选类型中的有值就是true，无值(nil)是false。
+    //疑问？ Swift语句中要求条件语句的条件是 true和false。而可选类型的有值并不能说明条件就是true。 那么可选类型在条件成立的原因可能是 可选类型中的有值就是true，无值(nil)是false。
  */
 let possibleNumber = "123"
 if let actualNumber = Int(possibleNumber) {

@@ -45,7 +45,7 @@ let result = (1, "apple") < (1, "bird")
     1.其实可以称作可选运算符。因为这个运算符只能用于可选类型
     2.前面必须为可选类型
     3.格式： a ?? b
-    4.解析格式意义： a ?? b == a? ? b == a != nil ? a! : b //口语解释：首先指定a为可选类型，a不为nil的时候，a取值为 a!，否则a取值为b。
+    4.解析格式意义： a ?? b == (a? ? b) == (a != nil ? a! : b) //口语解释：首先指定a为可选类型，a不为nil的时候，a取值为 a!，否则a取值为b。
     5.b的类型必须和 a！的类型一致
  */
 let defaultColorName = "red"
@@ -62,7 +62,7 @@ colorName = userDefineColorName ?? defaultColorName
     2.全闭区间运算符(a...b)：取值范围从a到b，且包括a和b。  
     3.半开区间运算符(a..<b):取值范围是从a到b，但是只包含a。
  */
-for index in 1...5 { //index默认是let 声明的常量
+for index in 1..<5 { //index默认是let 声明的常量
     print(index)
 }
 

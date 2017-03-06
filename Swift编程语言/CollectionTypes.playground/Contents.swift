@@ -20,21 +20,23 @@ import UIKit
  */
 var arrayM = Array<Int>()
 arrayM.append(2)
-arrayM.insert(3, atIndex: 0)
+arrayM.insert(3, at: 0)
+arrayM.append(contentsOf: 10...15)
+//arrayM.insert(3, atIndex: 0)//error
 let array = Array<Int>()
 
 // 数组
 /*
     1.首先是一个有序列表(和OC中一致)
-    2.  OC:数组中可以存放不同类型的对象
+    2.  OC:数组中可以存放同类型的对象
         Swift:数组中必须存放同一类型的值（swift中标准称为值）
     3.数组中的值可以重复(和OC一致)
     4.Swift和OC相互转化
     5.数组类型全称 Array<element> ,简写为 [element].element就是数组创建的时候必须声明的存储值类型
  */
 let array2 = Array<Int>() //全称创建空数组
-let array3: NSArray = array2
-let array4 = ["1","2","3"] //简写创建数组
+let array3: NSArray = array2 as NSArray //swift3.0.1需要添加 as NSArray
+let array4 = ["1","2","3"] //数组字面量方法创建数组
 var someInts = [Int]()     //简写创建空数组
 someInts.append(9)
 someInts = []              //赋值空数组，但数组存储类型不变
@@ -43,8 +45,10 @@ someInts = []              //赋值空数组，但数组存储类型不变
 var shoppingList = ["1","2","3","4","5","6"]
 shoppingList[1...3] = ["8","9"]
 print(shoppingList)
-shoppingList.insert("hi", atIndex: 0)
-let remodedItem = shoppingList.removeAtIndex(0) //返回结果是删除的item
+shoppingList.insert("hi", at: 0)
+//shoppingList.insert("hi", atIndex: 0)
+let remodedItem = shoppingList.remove(at: 0)
+//let remodedItem = shoppingList.removeAtIndex(0) //返回结果是删除的item
 print(shoppingList)
 
 
@@ -58,7 +62,7 @@ for item in shoppingList {
     print(item)
 }
 //2
-for (var index, var value) in shoppingList.enumerate() {//分解的变量 index和value默认为常量
+for (var index, var value) in shoppingList.enumerated() {//分解的变量 index和value默认为常量
     print(index, value)
 }
 
@@ -110,7 +114,7 @@ for genre in favoriteGenres {//输出的结果是无序的
     print(genre)
 }
 //2
-for genre in favoriteGenres.sort() {
+for genre in favoriteGenres.sorted() {
     print("12",genre)
 }
 
@@ -122,23 +126,22 @@ for genre in favoriteGenres.sort() {
     4.得到一个A集合除去B集合部分的新集合。.subtracting()   subtracting(减去)
     5.A集合去除B集合中的items，没有返回值，只是A集合变化。 .subtractInPlace
  */
-let oddDigits: Set = ["1","3","5","7","9"]
+var oddDigits: Set = ["1","3","5","7","9"]
 let evenDigits: Set = ["0","2","4","6","8"]
 let sigleNum: Set = ["2","3","5","7"]
 var odd: Set = ["1","3","7","8"]
 //1
-let intersection = oddDigits.intersect(evenDigits) //swift2 的旧方法
-oddDigits.intersect(sigleNum)  //返回一个新的集合set
+let intersection = oddDigits.intersection(evenDigits)
+oddDigits.intersection(sigleNum)  //返回一个新的集合set
 //2 
-oddDigits.exclusiveOr(evenDigits)  //swift2 旧方法
-oddDigits.exclusiveOr(sigleNum)
+oddDigits.symmetricDifference(evenDigits)
+oddDigits.symmetricDifference(sigleNum)
 //3
 oddDigits.union(sigleNum)
 //4
 oddDigits.subtract(sigleNum)
 //5
-odd.subtractInPlace(sigleNum)
-odd
+odd.subtract(sigleNum)
 
 // set间的关系
 /*
@@ -156,17 +159,17 @@ if A == B {
     print(B)
 }
 //2
-var isSub = A.isSubsetOf(C)
-//isSub = A.isSupersetOf(C)
-isSub = A.isStrictSubsetOf(C)
-isSub = A.isStrictSupersetOf(C)
+var isSub = A.isSubset(of: C)
+isSub = A.isSuperset(of: C)
+isSub = A.isStrictSubset(of: C)
+isSub = A.isStrictSuperset(of: C)
 if isSub {
     print(A)
 }else {
     print(C)
 }
 //3
-if A.isDisjointWith(D) {
+if A.isDisjoint(with: D) {
     print(A)
 }else {
     print(D)
@@ -220,8 +223,6 @@ for name in airports.values {
 //3
 let codes = [String](airports.keys)
 let names = [String](airports.values)
-
-
 
 
 
